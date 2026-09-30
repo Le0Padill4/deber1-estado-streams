@@ -6,13 +6,20 @@ import 'domain/usecases/incrementar.dart';
 import 'domain/usecases/obtener_contador.dart';
 import 'presentation/pantallas/pantalla_visor.dart';
 
-void main() {
-  final repository = ContadorPrefsRepository();
-  runApp(ContadorApp(
-    obtenerContador: ObtenerContador(repository),
-    incrementar: Incrementar(repository),
-    decrementar: Decrementar(repository),
-  ));
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final repository = ContadorPrefsRepository();
+    return ContadorApp(
+      obtenerContador: ObtenerContador(repository),
+      incrementar: Incrementar(repository),
+      decrementar: Decrementar(repository),
+    );
+  }
 }
 
 class ContadorApp extends StatelessWidget {
@@ -29,12 +36,14 @@ class ContadorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Contador compartido',
-        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo)),
-        home: PantallaVisor(
-          obtenerContador: obtenerContador,
-          incrementar: incrementar,
-          decrementar: decrementar,
-        ),
-      );
+    title: 'Contador compartido',
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+    ),
+    home: PantallaVisor(
+      obtenerContador: obtenerContador,
+      incrementar: incrementar,
+      decrementar: decrementar,
+    ),
+  );
 }
